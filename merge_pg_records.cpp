@@ -819,6 +819,7 @@ std::string left_join_two_file(const std::string &left_file, const std::vector<s
 		////}
 
 		std::string cat_raw_name = remove_extension(cat_file);
+                system("mkdir -p out");
 		std::string res_f = "out/" + cat_raw_name + "_merge_res.csv";
 		std::ofstream fout(res_f);
 

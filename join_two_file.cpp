@@ -764,6 +764,7 @@ std::string left_join_two_file(const std::string &left_file, const std::vector<s
 		////std::cout << n.first << "->"  << n.second << endl;
 		////}
 		std::string left_raw_name = remove_extension(left_file);
+                system("mkdir -p out");
 		std::string res_f = "out/" + left_raw_name + "_day2_final_res.csv";
 		std::ofstream fout(res_f);
 		std::string res_str;
