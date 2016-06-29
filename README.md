@@ -48,7 +48,7 @@
 ## requirements
 	gcc 4.8+ (c++ 11 support)
 	boost library(1.47+)
-	link against pthread library
+	pthread library
 
 ## install
 	make
@@ -70,7 +70,7 @@
 	  ~/FlameGraph/flamegraph.pl ./out.folded > merge_pg_records.svg
 
 ## todo
-	通过上一步profiling分析'perf report'以及FlameGraph的输出，发现两个程序主要耗时的都是大量字符串的mallocate/deallocate,因此可以考虑以下两种方案解决：
-	1. 使用其它内存效率更高的数据结构存储结果字符串,例如[rope](http://www.sgi.com/tech/stl/ropeimpl.html)
-	2. 如果数据库中需要提取的每个字段都是固定大小的话，大量小对象的new/delete可以采用memory pool，例如[boost pool(http://www.boost.org/doc/libs/1_61_0/libs/pool/doc/html/boost_pool/pool/pooling.html#boost_pool.pool.pooling.concepts)
+  通过上一步profiling分析'perf report'以及FlameGraph的输出，发现两个程序主要耗时的都是大量字符串的mallocate/deallocate,因此可以考虑以下两种方案解决：
+  1. 使用其它内存效率更高的数据结构存储结果字符串,例如[rope](http://www.sgi.com/tech/stl/ropeimpl.html)
+  2. 如果数据库中需要提取的每个字段都是固定大小的话，大量小对象的new/delete可以采用memory pool，例如[boost pool](http://www.boost.org/doc/libs/1_61_0/libs/pool/doc/html/boost_pool/pool/pooling.html#boost_pool.pool.pooling.concepts)
 
