@@ -697,7 +697,11 @@ std::string left_join_two_file(const std::string &left_file, const std::vector<s
 				std::cout << "file parameter '" << in_files[i] << "' is EMPTY !!" << endl;
 				return EXIT_FAILURE;
 			}
-			cat_file += remove_extension(in_files[i]) + "-";
+			std::string cur_file = in_files[i];
+			size_t res_pos = cur_file.find_last_of("/\\");
+			//std::cout << "res_pos= " << res_pos << std::endl;
+			cur_file=cur_file.substr( res_pos == std::string::npos ? 0 : res_pos+1 );
+			cat_file += remove_extension(cur_file) + "-";
 			cmd_buffer += " " + in_files[i];
 		}
 		cat_file = cat_file.substr(0,cat_file.find_last_of("-")) + ".csv" ;

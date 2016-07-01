@@ -792,7 +792,7 @@ std::string left_join_two_file(const std::string &left_file, const std::vector<s
 		}
 		try{
 			// this function has no return error code thus exception might throw to indicate runtime error
-			// SIGSIGV if the return string is two large ( 3GB+ )
+			// SIGSIGV if the return string is too large ( 3GB+ )
 			join_ret = parallel_left_join_two_file(file_parts_name,
 					key_col_idx,
 					max_col_num,

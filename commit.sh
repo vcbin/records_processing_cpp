@@ -1,8 +1,5 @@
 #!bin/bash
 
-cwd=$( dirname "$0" )
-cd $cwd
-[[ ! -d .git ]] && { echo "NOT a git repo directory!!";exit 1; }
 # read the options
 TEMP=`getopt -o Vhn --long verbose,help,dry-run,amend -n "$0" -- "$@"`
 eval set -- "$TEMP"
@@ -28,6 +25,15 @@ esac
 done
 [[ $# -eq 0 || $d_help == 'y' ]] && echo -e "usage:\t$0\t'commmit message'\t[branch_name]"
 
+cwd=$( dirname "$0" )
+cd $cwd
+[[ ! -d .git ]] && { echo "NOT a git repo directory!!";exit 1; }
+doxy_f_lst=$( find -name 'Doxyfile' 2>/dev/null )
+if [[ $doxy_f_lst ]]; then
+        doxy_path=$(dirname $doxy_f_lst)
+        cd $doxy_path && doxygen
+        cd $cwd
+fi
 commit_dir="commit_info"
 commit_out_f="${commit_dir}/commit_out"
 [[ ! -d $commit_dir ]] && mkdir -p $commit_dir
