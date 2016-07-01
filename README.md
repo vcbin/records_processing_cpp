@@ -1,5 +1,5 @@
 ## description
-使用C++编写的计算用户上次观看日期的命令行工具。能够充分利用多核CPU的计算能力以及C++11的新特性(std::async/std::move)，在8核服务器(10.200.8.72)上计算一亿条用户观看数据的上次观看日期时比MySQL和PostgreSQL快10倍以上,内存占用只有实现相同功能的AWK脚本的1/3
+使用C++编写的计算用户上次观看日期的命令行工具。能够充分利用多核CPU的计算能力以及C++11的新特性(std::async/std::move)，在8核服务器(10.200.8.72)上计算一亿条用户观看数据的上次观看日期时比MySQL和PostgreSQL快**10倍**以上,内存占用只有实现相同功能的AWK脚本的**1/3**
   1. 命令行工具gen_first_visit_day用于处理从数据库中导出的观看记录并在最后添加上次观看日期列，输入的格式为
 ```
 		291976  "i99000693160305"       20160601
@@ -127,4 +127,3 @@ file writing time       taken..
   通过上一步profiling分析'perf report'以及FlameGraph的输出，发现两个程序主要耗时的都是大量字符串的mallocate/deallocate,因此可以考虑以下两种方案解决：
   1. 使用其它内存效率更高的数据结构存储结果字符串,例如[rope](http://www.sgi.com/tech/stl/ropeimpl.html)
   2. 如果数据库中需要提取的每个字段都是固定大小的话，大量小对象的new/delete可以采用memory pool，例如[Memory Pool](http://www.codinglabs.net/tutorial_memory_pool.aspx)或者[boost pool](http://www.boost.org/doc/libs/1_61_0/libs/pool/doc/html/boost_pool/pool/pooling.html#boost_pool.pool.pooling.concepts)
-
