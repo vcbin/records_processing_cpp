@@ -101,7 +101,7 @@ file writing time       taken..
 ```
 ## requirements
 	gcc 4.8+ (C++ 11 support)
-	boost library(1.47+)
+	boost library(tested under 1.41)
 	pthread library
 
 ## install

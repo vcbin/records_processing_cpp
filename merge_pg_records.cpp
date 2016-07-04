@@ -337,16 +337,16 @@ std::string left_join_two_file(const std::string &left_file, const std::vector<s
 					);
 		}
 		bool except_exist = false;
-		for (auto i=0; i<THREAD_NUM; i++){
+		for (auto i=0; i<THREAD_NUM; i++){ // multiple threads may rethrow exceptions simultaneously, thus you CAN'T do the other way around: wrapp for-loop inside try-cacth block
 			try{
 				res_str += results[i].get();
 			}
-			catch (const std::exception& ex) {
+			catch (const std::exception& ex) { // swallow one thread's exception, otherwise you wouldn't get the rest threads' return values
 				except_exist = true;
 				std::cout << endl;
 				std::cout << ex.what() << endl;
 			}
-		}
+		} // this method is NOT perfect,check http://www.cs.tut.fi/cgi-bin/run/bitti/download/multip-article-15.pdf
 		if (except_exist)
 			throw std::runtime_error(Formatter() << string_format("function 'parallel_left_join_two_file' failed!"));
 		//std::cout << endl;
